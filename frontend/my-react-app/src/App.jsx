@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 // import {   Link } from 'react-router-dom'
 // import Details from "./Details";
+import moment from "moment-timezone";
 function App() {
   const [listOfUsers, setListOfUsers] = useState([]);
   const [name, setName] = useState("");
@@ -25,7 +26,7 @@ function App() {
     fetchUsers();
   }, []);
 
-
+ 
   const isUsernameUnique = () => {
     return !listOfUsers.some(user => user.username === username);
   }
@@ -51,6 +52,12 @@ function App() {
       return;
     }
 
+    // Check if the name contains numeric or symbols
+    if (/[\d!@#$%^&*(),.?":{}|<>]/.test(name)) {
+      alert("Name should only contain alphabetic characters");
+      return;
+    }
+
     // Check if the scholarId is valid
     if (!/^221\d{4}$/.test(scholarId)) {
       alert("Invalid scholar id");
@@ -58,6 +65,25 @@ function App() {
     }
 
 
+    // Check if the email contains uppercase letters
+    if (/[A-Z]/.test(email)) {
+      alert("Email should be in lowercase");
+      return;
+    }
+
+
+// Check if the email contains symbols
+if (/[!#$%^&*(),?":{}|<>]/.test(email)) {
+  alert("Email should not contain symbols");
+  return;
+}
+
+// Check if the email contains symbols before the @ symbol
+const atIndex = email.indexOf("@");
+if (/[!@#$%^&*(),.?":{}|<>]/.test(email.slice(0, atIndex))) {
+  alert("Email should not contain symbols before @ symbol");
+  return;
+}
 
     //check email is unique
     if (!isEmailUnique()) {
@@ -86,9 +112,12 @@ function App() {
       return;
     }
 
+    //retrieve time in ist
+    // const timestamp = moment().tz('Asia/Kolkata').valueOf();
+    const timestamp = moment().tz('Asia/Kolkata').format();
 
 
-    axios.post("http://localhost:3001/createUser", { name, age, username, email, branch, scholarId }).then((response) => {
+    axios.post("http://localhost:3001/createUser", { name, age, username, email, branch, scholarId, timestamp }).then((response) => {
       setName("");
       setAge("");
       setUsername("");
@@ -98,7 +127,7 @@ function App() {
       alert("User created 😍");
     });
 
-    
+
   };
 
   return (

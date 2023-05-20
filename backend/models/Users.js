@@ -18,6 +18,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    // match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+    // match: [/.*/, "Invalid email address"],
+    // match: /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/,
     validate: {
       validator: function (value) {
         // Use a regular expression to check if the email has one of the allowed domains
@@ -43,7 +46,8 @@ const UserSchema = new mongoose.Schema({
       message: 'Scholar ID must begin with "221" and have 7 numeric characters.'
     }
   },
-  // other fields in your schema
+  // ipAddress: String, // New field for IP address
+  timestamp: Date,
 });
 // });
 
