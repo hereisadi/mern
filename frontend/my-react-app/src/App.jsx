@@ -8,8 +8,10 @@ function App() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [username, setUsername] = useState("");
-  const [department, setDepartment] = useState(""); // New state for department
+  const [branch, setBranch] = useState("");
   const [email, setEmail] = useState("")
+  const [scholarId, setScholarId] = useState("")
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -28,26 +30,44 @@ function App() {
     return !listOfUsers.some(user => user.username === username);
   }
 
+  const isScholarIdUnique = () => {
+    return !listOfUsers.some(user => user.scholarId === scholarId);
+  }
+
   const isEmailUnique = () => {
     return !listOfUsers.some(user => user.email === email);
   }
 
+  //checking if all required fiels are filled
   const isFormValid = () => {
-    return name !== "" && email !== "" && username !== "";
+    return name !== "" && email !== "" && username !== "" && age != "" && branch != "" && scholarId != "";
   };
 
 
   const createUser = () => {
-
     // Check if all inputs are filled
     if (!isFormValid()) {
       alert("Please fill all the required fields");
       return;
     }
 
+    // Check if the scholarId is valid
+    if (!/^221\d{4}$/.test(scholarId)) {
+      alert("Invalid scholar id");
+      return;
+    }
 
+
+
+    //check email is unique
     if (!isEmailUnique()) {
       alert("Email is not unique");
+      return;
+    }
+
+    // check if scholar id is unique
+    if (!isScholarIdUnique()) {
+      alert("Scholar id already exists")
       return;
     }
 
@@ -66,14 +86,19 @@ function App() {
       return;
     }
 
-    axios.post("http://localhost:3001/createUser", { name, age, username }).then((response) => {
+
+
+    axios.post("http://localhost:3001/createUser", { name, age, username, email, branch, scholarId }).then((response) => {
       setName("");
       setAge("");
       setUsername("");
       setEmail("");
-      setDepartment("");
-      alert("User created");
+      setBranch("");
+      setScholarId("")
+      alert("User created 😍");
     });
+
+    
   };
 
   return (
@@ -83,6 +108,7 @@ function App() {
           <h1>name: {user.name}</h1>
           <h1>age: {user.age}</h1>
           <h1>username: {user.username}</h1>
+          <h1>branch: {user.branch}</h1>
         </div>
       ))}
       <div>
@@ -92,29 +118,31 @@ function App() {
         <input type="email" placeholder="your institute email" value={email}
           onChange={(event) => { setEmail(event.target.value); }}
         />
+
+        <input type="text" placeholder="your scholar id" value={scholarId} onChange={(event) => { setScholarId(event.target.value); }} />
         <div>
           <label>
-            <input type="radio" name="branch" value="CSE" checked={department === "CSE"} onChange={(event) => { setDepartment(event.target.value); }} />
+            <input type="radio" name="branch" value="CSE" checked={branch === "CSE"} onChange={(event) => { setBranch(event.target.value); }} />
             CSE
           </label>
           <label>
-            <input type="radio" name="branch" value="Civil" checked={department === "Civil"} onChange={(event) => { setDepartment(event.target.value); }} />
+            <input type="radio" name="branch" value="Civil" checked={branch === "Civil"} onChange={(event) => { setBranch(event.target.value); }} />
             Civil
           </label>
           <label>
-            <input type="radio" name="branch" value="ME" checked={department === "ME"} onChange={(event) => { setDepartment(event.target.value); }} />
+            <input type="radio" name="branch" value="ME" checked={branch === "ME"} onChange={(event) => { setBranch(event.target.value); }} />
             ME
           </label>
           <label>
-            <input type="radio" name="branch" value="ECE" checked={department === "ECE"} onChange={(event) => { setDepartment(event.target.value); }} />
+            <input type="radio" name="branch" value="ECE" checked={branch === "ECE"} onChange={(event) => { setBranch(event.target.value); }} />
             ECE
           </label>
           <label>
-            <input type="radio" name="branch" value="EE" checked={department === "EE"} onChange={(event) => { setDepartment(event.target.value); }} />
+            <input type="radio" name="branch" value="EE" checked={branch === "EE"} onChange={(event) => { setBranch(event.target.value); }} />
             EE
           </label>
           <label>
-            <input type="radio" name="branch" value="EI" checked={department === "EI"} onChange={(event) => { setDepartment(event.target.value); }} />
+            <input type="radio" name="branch" value="EI" checked={branch === "EI"} onChange={(event) => { setBranch(event.target.value); }} />
             EI
           </label>
         </div>

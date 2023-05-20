@@ -6,7 +6,7 @@ const UserModel = require("./models/Users");
 
 const cors = require("cors")
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 mongoose.connect(
   "mongodb+srv://mongoformerntry:iopryeuisf54@cluster0.1tslte4.mongodb.net/merntutorial?retryWrites=true&w=majority"
@@ -24,15 +24,7 @@ app.get("/getUsers", (req, res) => {
     }
   });
 
-  //   async function getData(req, res) {
-  //     try {
-  //       const result = await UserModel.find();
-  //       res.json(result);
-  //     } catch (error) {
-  //       res.status(500).json({ error: "An Error occured" });
-  //     }
-  //   }
-  //   module.exports = { getData };
+
 });
 
 app.post("/createUser", async (req, res) => {
@@ -42,6 +34,8 @@ app.post("/createUser", async (req, res) => {
 
   res.json(user);
 });
+
+
 
 app.listen(3001, () => {
   console.log("server started.");

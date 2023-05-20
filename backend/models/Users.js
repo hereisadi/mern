@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
   },
   age: {
     type: Number,
-    required: false,
+    required: true,
   },
   username: {
     type: String,
@@ -31,18 +31,18 @@ const UserSchema = new mongoose.Schema({
     enum: ["CSE", "Civil", "ME", "ECE", "EE", "EI"],
     required: true,
   },
-  // scholarId: {
-  //   type: String,
-  //   required: true,
-  //   unique: true,
-  //   validate: {
-  //     validator: function (value) {
-  //       // Use a regular expression to check if the scholar ID matches the required format
-  //       return /^221\d{4}$/.test(value);
-  //     },
-  //     message: 'Scholar ID must begin with "221" and have 7 numeric characters.'
-  //   }
-  // },
+  scholarId: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator: function (value) {
+        // Use a regular expression to check if the scholar ID matches the required format
+        return /^221\d{4}$/.test(value);
+      },
+      message: 'Scholar ID must begin with "221" and have 7 numeric characters.'
+    }
+  },
   // other fields in your schema
 });
 // });
