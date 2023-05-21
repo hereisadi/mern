@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const UserModel = require("./models/Users");
 
 const cors = require("cors")
-require('dotenv').config()
+// require('dotenv').config()
 app.use(express.json());
 app.use(cors());
 
@@ -41,6 +41,6 @@ app.post("/createUser", async (req, res) => {
 
 
 
-app.listen(process.env.PORT || 3001, () => {
+app.listen(3001, () => {
   console.log("server started.");
 });
