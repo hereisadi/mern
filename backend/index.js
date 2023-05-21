@@ -5,12 +5,12 @@ const mongoose = require("mongoose");
 const UserModel = require("./models/Users");
 
 const cors = require("cors")
-// require('dotenv').config()
+require('dotenv').config();
 app.use(express.json());
 app.use(cors());
 
 mongoose.connect(
-  "mongodb+srv://mongoformerntry:iopryeuisf54@cluster0.1tslte4.mongodb.net/merntutorial?retryWrites=true&w=majority"
+  process.env.MONGODBSECRET
 );
 
 app.get("/getUsers", (req, res) => {
