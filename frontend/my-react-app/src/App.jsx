@@ -117,7 +117,7 @@ if (/[!@#$%^&*(),.?":{}|<>]/.test(email.slice(0, atIndex))) {
     const timestamp = moment().tz('Asia/Kolkata').format();
 
 
-    axios.post("http://localhost:3001/createUser", { name, age, username, email, branch, scholarId, timestamp }).then((response) => {
+    axios.post("https://mern0-houw.onrender.com/createUser", { name, age, username, email, branch, scholarId, timestamp }).then((response) => {
       setName("");
       setAge("");
       setUsername("");
