@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("https://mern0-houw.onrender.com//getUsers");
+        const response = await axios.get("https://mern0-houw.onrender.com/getUsers");
         setListOfUsers(response.data);
       } catch (error) {
         console.log("Error fetching users:", error);
