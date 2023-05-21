@@ -5,7 +5,7 @@ import axios from 'axios';
 // import Details from "./Details";
 import moment from "moment-timezone";
 function App() {
-  const [listOfUsers, setListOfUsers] = useState([]);
+  const [listOfUsers, setListOfUsers] = useState([])
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [username, setUsername] = useState("");
@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/getUsers");
+        const response = await axios.get("https://mern0-houw.onrender.com//getUsers");
         setListOfUsers(response.data);
       } catch (error) {
         console.log("Error fetching users:", error);
