@@ -46,7 +46,7 @@ const UserSchema = new mongoose.Schema({
       message: 'Scholar ID must begin with "221" and have 7 numeric characters.'
     }
   },
-  // ipAddress: String, // New field for IP address
+  ip: String, // New field for IP address
   timestamp: Date,
 });
 // });
